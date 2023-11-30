@@ -1,0 +1,53 @@
+version: "3.8"
+services:
+  #PHP Service
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: php
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - webserver:/var/www
+    ports:
+      - "9000:9000"
+    networks:
+      - network
+
+  #Nginx Service
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - webserver:/var/www
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - network
+
+  #Database Service 
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "2717:27017"
+    volumes:
+      - webserver:/var/www
+    networks:
+      - network
+
+#Docker Volumes
+volumes:
+  webserver:
+
+#Docker Networks
+networks:
+  network:
+    driver: bridge
