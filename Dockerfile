@@ -6,9 +6,6 @@ COPY src/composer.lock src/composer.json src/var/www/
 # Set working directory
 WORKDIR /var/www
 
-# Install Node.js and npm
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get update && apt-get install -y nodejs
-
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -16,22 +13,18 @@ RUN apt-get update && apt-get install -y \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
     locales \
-    zip \
     jpegoptim optipng pngquant gifsicle \
-    vim \
-    unzip \
-    git \
-    curl
+    curl \
+    libcurl4-openssl-dev pkg-config libssl-dev
+
+# Install mongodb and php extensions
+RUN pecl install mongodb && docker-php-ext-enable mongodb
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql
-
-RUN apt-get --yes install libfreetype6-dev \
-                          libjpeg62-turbo-dev \
-                          libpng-dev 
+RUN docker-php-ext-install pdo pdo_mysql && docker-php-ext-enable pdo_mysql
 
 RUN set -e; \
     docker-php-ext-configure gd --with-jpeg  --with-freetype; \
