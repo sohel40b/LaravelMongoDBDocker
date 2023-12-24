@@ -5,10 +5,6 @@
 
 This repository provides you a development environment without requiring you to install PHP, a web server, and any other server software on your local machine. For this, it requires only Docker.
 
-### Installation
-
-This is an example of how you may give instructions on setting up your project locally. To get a local copy up and running follow these simple example steps.
-
 ### Version
 
 - PHP > 8.2.12
@@ -16,6 +12,10 @@ This is an example of how you may give instructions on setting up your project l
 - Mongodb > v7.0.4
 - Mongodb Package > 4.1.0
 - VueJS > 3
+
+### Installation
+
+This is an example of how you may give instructions on setting up your project locally. To get a local copy up and running follow these simple example steps.
 
 1. Clone the repo
    ```sh
