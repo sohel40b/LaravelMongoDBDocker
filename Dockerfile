@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     locales \
     jpegoptim optipng pngquant gifsicle \
     curl \
+    zip \
     libcurl4-openssl-dev pkg-config libssl-dev
 
 # Install mongodb and php extensions

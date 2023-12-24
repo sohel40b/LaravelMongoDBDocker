@@ -9,9 +9,17 @@ This repository provides you a development environment without requiring you to 
 
 This is an example of how you may give instructions on setting up your project locally. To get a local copy up and running follow these simple example steps.
 
+### Version
+
+- PHP > 8.2.12
+- Laravel > 10.33.0
+- Mongodb > v7.0.4
+- Mongodb Package > 4.1.0
+- VueJS > 3
+
 1. Clone the repo
    ```sh
-   git clone 
+   git clone https://github.com/sohel40b/LaravelVueMongoDB.git
    ```
 2. Switch to the project folder and open terminal 
    ```sh
