@@ -19,7 +19,7 @@ class AuthController extends Controller
             if(!$user || !Hash::check($request->password,$user->password)){
 
                 return response()->json([
-                    'status' => 401,
+                    'status' => false,
                     'message' => 'Invalid credentials'
                 ], 401);
             }
@@ -28,11 +28,10 @@ class AuthController extends Controller
 
                 $user = User::find(Auth::id());
 
-                $tokenName = 'fundaToken'.rand(111,999);
-                $token = $user->createToken($tokenName)->plainTextToken;
+                $token = $user->createToken("API TOKEN")->plainTextToken;
 
                 return response()->json([
-                        'status' => 200,
+                        'status' => true,
                         'message' => 'Login Successful',
                         'access_token' => $token,
                         'token_type' => 'Bearer',
@@ -40,17 +39,17 @@ class AuthController extends Controller
             }else{
 
                 return response()->json([
-                    'status' => 401,
+                    'status' => false,
                     'message' => 'Invalid credentials'
                 ], 401);
             }
 
-        } catch (Exception $e) {
+        } catch (\Throwable $th) {
 
             return response()->json([
-                'message' => 'Something went wrong '.$e->getMessage(),
-                'status' => 500
-            ], 500);
+                'status' => false,
+                'message' => 'Something went wrong '.$th->getMessage()
+            ], 400);
         }
     }
     public function signup(Request $request)
@@ -62,24 +61,19 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password)
             ]);
-            // dd($user);
 
             return response()->json([
                 'status' => true,
                 'message' => 'User Created Successfully',
-                'data' => [
-                    'user' => $user,
-                    'token_type' => 'Bearer',
-                    'token' => $user->createToken("API TOKEN")->plainTextToken
-                ]
+                'data' => $user
             ], 201);
 
-        } catch (Exception $e) {
+        } catch (\Throwable $th) {
 
             return response()->json([
                 'status' => false,
-                'message' => 'Something went wrong '.$e->getMessage()
-            ], 500);
+                'message' => 'Something went wrong '.$th->getMessage()
+            ], 400);
         }
 
     }

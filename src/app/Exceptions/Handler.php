@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Routing\Exceptions\RouteNotFoundException;
 
 class Handler extends ExceptionHandler
 {
@@ -27,4 +28,14 @@ class Handler extends ExceptionHandler
             //
         });
     }
+    public function render($request, Throwable $exception)
+    {
+        return response()->json([
+            'errors' => [
+                'status' => false,
+                'message' => 'Unauthenticated',
+            ]
+        ],401);
+    }
+
 }

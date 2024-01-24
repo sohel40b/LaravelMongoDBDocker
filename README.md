@@ -19,7 +19,7 @@ This is an example of how you may give instructions on setting up your project l
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/sohel40b/LaravelVueMongoDB.git
+   git clone https://github.com/sohel40b/LaravelMongoDB.git
    ```
 2. Switch to the project folder and open terminal 
    ```sh
@@ -43,25 +43,7 @@ This is an example of how you may give instructions on setting up your project l
    ```
 4. Change your code in `.env`
    ```js
-   DB_HOST: mysql
-   APP_URL: http://localhost:8000
-   ```
-5. Finally install and run server in php image terminal
-   ```sh
-   npm install
-   ```
-   ```sh
-   npm run dev
-   ```
-   
- ### For Windows user only change your code in `vite.config.js`
-   ```sh
-   server: {
-        host: '0.0.0.0',
-        hmr: {
-            host: 'localhost'
-        }
-    },
+   DB_HOST: db
    ```
 <!-- Documentation -->
 ## Documentation
