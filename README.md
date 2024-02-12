@@ -61,15 +61,4 @@ This is an example of how you may give instructions on setting up your project l
    ```sh
    php artisan migrate
    ```
-<!-- Documentation -->
-## Documentation
-Install the package via composer in laravel-mongodb-web image terminal
-```sh
-composer require rakutentech/laravel-request-docs
-```
-Documentation URL provide below.
-```sh
-http://localhost:8000/request-docs/
-```
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
