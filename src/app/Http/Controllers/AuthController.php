@@ -2,60 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
-use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
-    public function signin(Request $request)
-    {
-        try {
-
-            $user = User::where('email',$request->email)->first();
-
-            if(!$user || !Hash::check($request->password,$user->password)){
+    public function login(LoginRequest $request){
+        try { 
+            if(Auth::attempt($request->only(['email', 'password']))){
+                $user = User::where('email', $request->email)->first();
 
                 return response()->json([
-                    'status' => false,
-                    'message' => 'Invalid credentials'
-                ], 401);
-            }
-
-            if (Auth::attempt($request->only('email', 'password'))) {
-
-                $user = User::find(Auth::id());
-
-                $token = $user->createToken("API TOKEN")->plainTextToken;
-
-                return response()->json([
-                        'status' => true,
-                        'message' => 'Login Successful',
-                        'access_token' => $token,
-                        'token_type' => 'Bearer',
-                    ], 200);
+                    'status' => true,
+                    'message' => 'User Logged In Successfully',
+                    'data' => Auth::user(),
+                    'token' => $user->createToken("API TOKEN")->plainTextToken
+                ], 200);
             }else{
-
                 return response()->json([
                     'status' => false,
-                    'message' => 'Invalid credentials'
-                ], 401);
+                    'message' => 'Email & Password does not match with our record.',
+                ], 200);
             }
 
         } catch (\Throwable $th) {
-
             return response()->json([
                 'status' => false,
-                'message' => 'Something went wrong '.$th->getMessage()
-            ], 400);
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
-    public function signup(Request $request)
-    {
-        try {
 
+    public function register(RegisterRequest $request){
+        try {
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -65,17 +47,20 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'User Created Successfully',
-                'data' => $user
-            ], 201);
+                'token' => $user->createToken("API TOKEN")->plainTextToken
+            ], 200);
 
         } catch (\Throwable $th) {
-
             return response()->json([
                 'status' => false,
-                'message' => 'Something went wrong '.$th->getMessage()
-            ], 400);
+                'message' => $th->getMessage()
+            ], 500);
         }
+    }
 
+    public function dashboard(){
+        $user = User::where('_id', Auth::id())->first();
+        return $user;
     }
 
 }
