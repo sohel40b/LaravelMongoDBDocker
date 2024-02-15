@@ -21,7 +21,7 @@ This is an example of how you may give instructions on setting up your project l
 
 1. Clone the repository
    ```sh
-   git clone https://github.com/sohel40b/LaravelMongoDBDocker.git
+   git clone https://github.com/sohel40b/LaravelMongoDB.git
    ```
 2. Switch to the project folder and open terminal 
    ```sh
