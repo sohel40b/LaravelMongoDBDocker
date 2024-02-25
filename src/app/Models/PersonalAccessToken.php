@@ -5,7 +5,7 @@ namespace App\Models;
 use MongoDB\Laravel\Eloquent\Model;
 use Laravel\Sanctum\Contracts\HasAbilities;
 
-class CustomPersonalAccessToken extends Model implements HasAbilities
+class PersonalAccessToken extends Model implements HasAbilities
 {
     /**
      * The attributes that should be cast to native types.

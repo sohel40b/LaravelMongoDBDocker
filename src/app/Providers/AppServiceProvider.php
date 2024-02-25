@@ -24,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
         $loader = AliasLoader::getInstance();
 
         // SANCTUM CUSTOM PERSONAL-ACCESS-TOKEN
-        $loader->alias(\Laravel\Sanctum\PersonalAccessToken::class, \App\Models\CustomPersonalAccessToken::class);
+        $loader->alias(\Laravel\Sanctum\PersonalAccessToken::class, \App\Models\PersonalAccessToken::class);
     }
 }
